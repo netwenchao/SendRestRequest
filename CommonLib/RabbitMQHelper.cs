@@ -145,25 +145,6 @@ namespace CommonLib
         }
     }
 
-    /*     
-    public void Test() {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
-        using (var connection = factory.CreateConnection())
-        using (var channel = connection.CreateModel())
-        {
-            channel.ExchangeDeclare(exchange: "logs", type: "fanout");
-
-            var message = GetMessage(args);
-            var body = Encoding.UTF8.GetBytes(message);
-            channel.BasicPublish(exchange: "logs",
-                                 routingKey: "",
-                                 basicProperties: null,
-                                 body: body);
-            Console.WriteLine(" [x] Sent {0}", message);
-        }
-    }
-    */
-
     public class RabbitMQMessage
     {
         #region Properities
@@ -320,4 +301,43 @@ namespace CommonLib
         app_id,
         cluster_id
     }
+
+    #region DefaultHeaders
+    public class DictionaryEx<TKey, TValue> : Dictionary<TKey,TValue>
+    {
+        public DictionaryExt<TKey, TValue> AddEx(TKey key,TValue value)
+        {
+            if (this.ContainsKey(key))
+            {
+                this[key] = value;
+            }
+            else
+            {
+                this[key] = value;
+            }
+            return this;
+        }
+    }
+
+    /// <summary>
+    /// Predefined Params for RabbitMqHelper
+    /// </summary>
+    public static class PredefinedParams {
+
+        /// <summary>
+        /// With Content Type application/json
+        /// content Encoding utf-8
+        /// </summary>
+        public static DictionaryEx<MessageProperties, string> PropJsonMessage = new DictionaryEx<MessageProperties, string>() {
+            { MessageProperties.content_type,"application/json"},
+            { MessageProperties.content_encoding,"utf-8"},
+        };
+
+        public static DictionaryEx<string, string> Header4HinaStudy = new DictionaryEx<string, string>() {
+            {"category","" },
+            {"version","" },
+            {"","" }
+        };
+    }
+    #endregion
 }
