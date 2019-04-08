@@ -305,7 +305,7 @@ namespace CommonLib
     #region DefaultHeaders
     public class DictionaryEx<TKey, TValue> : Dictionary<TKey,TValue>
     {
-        public DictionaryExt<TKey, TValue> AddEx(TKey key,TValue value)
+        public DictionaryEx<TKey, TValue> AddEx(TKey key,TValue value)
         {
             if (this.ContainsKey(key))
             {
